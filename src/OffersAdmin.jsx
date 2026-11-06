@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ArrowLeft, Check, Plus, RefreshCw, Save, Trash2, X } from 'lucide-react';
 import './OffersAdmin.css';
 
-const apiBase = import.meta.env.VITE_API_URL || 'https://rug-backend.onrender.com';
+const apiBase = import.meta.env.DEV ? (import.meta.env.VITE_API_URL || 'http://localhost:4000') : '';
 async function api(path, options = {}) {
   const response = await fetch(`${apiBase}/api/admin/offers${path}`, { ...options, credentials: 'include', headers: { ...(options.body ? { 'Content-Type': 'application/json' } : {}), ...(options.headers || {}) } });
   const result = await response.json().catch(() => ({}));
