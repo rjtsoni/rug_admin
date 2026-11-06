@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, RefreshCw, Mail, CalendarDays, Search, X } from 'lucide-react';
 import './NewsletterAdmin.css';
-const api = 'http://localhost:4000';
+const api = import.meta.env.VITE_API_URL || 'https://rug-backend.onrender.com';
 const dateText = value => value ? new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value)) : '—';
 export default function NewsletterAdmin({ onClose }) {
   const [subscribers, setSubscribers] = useState([]); const [loading, setLoading] = useState(true); const [error, setError] = useState(''); const [query, setQuery] = useState('');

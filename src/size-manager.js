@@ -1,4 +1,4 @@
-const API = import.meta.env?.VITE_API_URL || 'http://localhost:4000';
+const API = import.meta.env?.VITE_API_URL || 'https://rug-backend.onrender.com';
 const h = (tag, attrs = {}, children = []) => { const el = document.createElement(tag); for (const [key, value] of Object.entries(attrs)) key === 'text' ? el.textContent = value : key === 'style' ? Object.assign(el.style, value) : el.setAttribute(key, value); for (const child of children) el.append(child); return el; };
 const button = (text, fn, secondary = false) => { const b = h('button', { type: 'button', text }); b.style.cssText = `padding:10px 14px;border:1px solid #c8cdbb;background:${secondary ? 'transparent' : '#354335'};color:${secondary ? '#354335' : '#fff'};cursor:pointer;margin:4px 4px 4px 0`; b.onclick = fn; return b; };
 const field = (label, type = 'text', value = '') => { const wrap = h('label', { text: label }); wrap.style.cssText = 'display:grid;gap:6px;font-size:13px;margin:8px 0'; const input = h('input', { type }); input.value = value ?? ''; input.style.cssText = 'padding:10px;border:1px solid #dedbd1;width:100%;box-sizing:border-box'; wrap.append(input); return { wrap, input }; };
