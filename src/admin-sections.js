@@ -3,12 +3,16 @@ import { createRoot } from 'react-dom/client';
 import OrdersAdmin from './OrdersAdmin.jsx';
 import OffersAdmin from './OffersAdmin.jsx';
 import NewsletterAdmin from './NewsletterAdmin.jsx';
+import ContactAdmin from './ContactAdmin.jsx';
+import ReviewsAdmin from './ReviewsAdmin.jsx';
 import './AdminSections.css';
 
 const sections = [
   { key: 'orders', label: 'Orders', icon: '▤', Component: OrdersAdmin },
   { key: 'offers', label: 'Offers', icon: '✦', Component: OffersAdmin },
-  { key: 'newsletter', label: 'Newsletter', icon: '✉', Component: NewsletterAdmin }
+  { key: 'newsletter', label: 'Newsletter', icon: '✉', Component: NewsletterAdmin },
+  { key: 'contact', label: 'Contact Us', icon: '⌖', Component: ContactAdmin },
+  { key: 'reviews', label: 'Reviews', icon: '★', Component: ReviewsAdmin }
 ];
 let activeKey = '';
 let panelRoot = null;

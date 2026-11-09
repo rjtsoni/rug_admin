@@ -37,6 +37,11 @@ function mountProductSizes(form) {
   const section = el('section');
   section.dataset.productSizeSection = 'true';
   section.style.cssText = 'border:1px solid #dedbd1;background:#fffdf8;padding:18px;margin:18px 0';
+  const merchandising = el('div'); merchandising.style.cssText = 'display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;border-bottom:1px solid #dedbd1;padding:0 0 16px;margin:0 0 16px';
+  const youMayAlsoLikeLabel = el('label'); youMayAlsoLikeLabel.style.cssText = 'display:flex;align-items:center;gap:9px;font-size:13px;color:#354335';
+  const youMayAlsoLikeInput = el('input', { type: 'checkbox' }); youMayAlsoLikeInput.dataset.youMayAlsoLike = 'true'; youMayAlsoLikeLabel.append(youMayAlsoLikeInput, document.createTextNode('Show in You may also like'));
+  youMayAlsoLikeInput.addEventListener('change', () => { form.__aaraYouMayAlsoLikeChanged = true; });
+  merchandising.append(youMayAlsoLikeLabel);
   const heading = el('h3', { text: 'Sizes, prices & photos' }); heading.style.cssText = 'margin:0 0 5px;font-size:18px;color:#354335';
   const intro = el('p', { text: 'Add each rug size with its own regular price, discount and 1–4 photos. The selected size and its photos will appear on the product page.' }); intro.style.cssText = 'margin:0 0 14px;font-size:13px;color:#71806b';
   const list = el('div'); const status = el('small'); status.style.cssText = 'display:block;color:#9b5144;margin:8px 0';
@@ -70,7 +75,7 @@ function mountProductSizes(form) {
   freeDelivery.addEventListener('change', syncDelivery); deliveryCharge.addEventListener('input', syncDelivery); deliveryCharge.disabled = freeDelivery.checked;
   detailFields.append(deliveryWrap, chargeWrap);
   detailsSection.append(detailsTitle, detailsIntro, detailFields, craftImageField);
-  section.append(heading, intro, list, addButton, detailsSection, status);
+  section.append(heading, intro, merchandising, list, addButton, detailsSection, status);
   const footer = form.querySelector('footer'); if (footer) form.insertBefore(section, footer); else form.append(section);
   form.dataset.productSizesMounted = 'true';
 
@@ -116,6 +121,7 @@ function mountProductSizes(form) {
     nativeFetch(`${API}/api/admin/products`, { credentials: 'include' }).then(response => response.ok ? response.json() : Promise.reject()).then(products => {
       const existingProduct = products.find(item => item._id === productId);
       const saved = existingProduct?.sizes || [];
+      youMayAlsoLikeInput.checked = Boolean(existingProduct?.youMayAlsoLike);
       if (!form.__aaraDetailsChanged) Object.assign(details, existingProduct?.details || {});
       if (!changed) sizes.splice(0, sizes.length, ...saved.map(item => ({ ...item, images: [...(item.images || [])] })));
       else sizes.unshift(...saved.filter(item => !sizes.some(current => current.label === item.label)).map(item => ({ ...item, images: [...(item.images || [])] })));
@@ -144,6 +150,7 @@ window.fetch = async (input, init = {}) => {
       const invalid = sizes.find(item => !item.label?.trim() || !Number.isFinite(Number(item.price)) || Number(item.price) < 0 || item.images.length < 1 || item.images.length > 4);
       if (invalid) return new Response(JSON.stringify({ error: `Complete size “${invalid.label || 'unnamed'}”: enter its name and price, then upload 1–4 photos.` }), { status: 400, headers: { 'Content-Type': 'application/json' } });
       payload.sizes = sizes.map(item => ({ ...item, price: Number(item.price) || 0, discountPercentage: Math.min(100, Math.max(0, Math.round(Number(item.discountPercentage) || 0))), images: item.images.filter(Boolean) }));
+      payload.youMayAlsoLike = Boolean(form.querySelector('[data-you-may-also-like]')?.checked);
       payload.details = { ...(payload.details || {}), ...(form.__aaraDetailsDraft || {}) };
       const featured = [...sizes].sort((a, b) => (Number(b.price) * (1 - Number(b.discountPercentage || 0) / 100)) - (Number(a.price) * (1 - Number(a.discountPercentage || 0) / 100)))[0];
       if (featured?.images?.length) {
