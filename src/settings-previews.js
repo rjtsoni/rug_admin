@@ -24,7 +24,7 @@ function previewMarkup(group, title) {
   if (/brand|logo|header/i.test(title)) {
     const name = get('Company name') || get('Logo wordmark') || 'Your brand name';
     const logo = get('Logo image');
-    body = `<div class="store-preview-brand">${logo ? imageTag(logo, name, 'brand-image') : `<strong>${safe(name)}</strong>`}<span>${safe(get('Logo tagline') || get('Footer logo caption') || 'Your brand tagline')}</span></div><div class="store-preview-mini-nav"><i></i><i></i><i></i><i></i></div>`;
+    body = `<div class="store-preview-brand">${logo ? imageTag(logo, name, 'brand-image') : `<strong>${safe(name)}</strong>`}<span>${safe(get('Navigation caption') || get('Logo tagline') || 'Your brand tagline')}</span></div><div class="store-preview-mini-nav"><i></i><i></i><i></i><i></i></div>`;
   } else if (/homepage|banner|hero/i.test(title)) {
     const heading = get('Hero headline') || get('Headline') || 'A little texture. A lot of home.';
     const eyebrow = get('Hero eyebrow') || get('Small text above headline') || 'ROOTED IN CRAFT. MADE FOR HOME.';

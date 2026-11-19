@@ -1,0 +1,8 @@
+.rich-text-admin { grid-column: 1 / -1; min-width: 0; color: #354335; }
+.rich-text-admin .ql-toolbar.ql-snow { border: 1px solid #deded3; background: #f8f7f1; padding: 8px; }
+.rich-text-admin .ql-container.ql-snow { border: 1px solid #deded3; border-top: 0; background: #fff; font: 13px/1.6 'DM Sans', sans-serif; }
+.rich-text-admin .ql-editor { min-height: 130px; color: #353c32; }
+.rich-text-admin .ql-editor.ql-blank::before { color: #929689; font-style: normal; }
+.rich-text-admin .ql-snow .ql-stroke { stroke: #495143; }
+.rich-text-admin .ql-snow .ql-fill { fill: #495143; }
+.rich-text-admin .ql-snow .ql-picker { color: #495143; }
