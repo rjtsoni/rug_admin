@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, RefreshCw, Mail, CalendarDays, Search, X } from 'lucide-react';
 import './NewsletterAdmin.css';
-const api = import.meta.env.DEV ? (import.meta.env.VITE_API_URL || 'http://localhost:4000') : '';
+const api = import.meta.env.DEV
+  ? (import.meta.env.VITE_API_URL || 'http://localhost:4000')
+  : import.meta.env.VITE_API_URL;
 const dateText = value => value ? new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value)) : '—';
 export default function NewsletterAdmin({ onClose }) {
   const [subscribers, setSubscribers] = useState([]); const [loading, setLoading] = useState(true); const [error, setError] = useState(''); const [query, setQuery] = useState('');
