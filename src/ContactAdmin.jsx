@@ -3,9 +3,7 @@ import { CalendarDays, Check, Mail, MessageSquareText, Phone, RefreshCw, Save } 
 import ImageUploadField from './ImageUploadField.jsx';
 import './ContactAdmin.css';
 
-const apiBase = import.meta.env.DEV
-  ? (import.meta.env.VITE_API_URL || 'http://localhost:4000')
-  : import.meta.env.VITE_API_URL;
+const apiBase = import.meta.env.DEV ? (import.meta.env.VITE_API_URL || 'http://localhost:4000') : 'https://api.tanurugs.com';
 const fields = [
   ['eyebrow', 'Eyebrow'], ['title', 'Page title'], ['intro', 'Intro text'], ['heroImage', 'Hero image'],
   ['email', 'Email address'], ['emailTitle', 'Email card title'], ['emailCaption', 'Email response time'],

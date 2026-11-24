@@ -1,6 +1,5 @@
-const API = import.meta.env.DEV
-  ? (import.meta.env.VITE_API_URL || 'http://localhost:4000')
-  : import.meta.env.VITE_API_URL; const nativeFetch = window.fetch.bind(window);
+const API = import.meta.env.DEV ? (import.meta.env.VITE_API_URL || 'http://localhost:4000') : 'https://api.tanurugs.com';
+const nativeFetch = window.fetch.bind(window);
 
 function el(tag, attrs = {}, children = []) {
   const node = document.createElement(tag);

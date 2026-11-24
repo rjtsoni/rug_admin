@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CalendarDays, Mail, MessageSquareText, RefreshCw, Star } from 'lucide-react';
 import './ReviewsAdmin.css';
 
-const apiBase = import.meta.env.DEV
-  ? (import.meta.env.VITE_API_URL || 'http://localhost:4000')
-  : import.meta.env.VITE_API_URL;
+const apiBase = import.meta.env.DEV ? (import.meta.env.VITE_API_URL || 'http://localhost:4000') : 'https://api.tanurugs.com';
 export default function ReviewsAdmin() {
   const [reviews, setReviews] = useState([]); const [loading, setLoading] = useState(true); const [error, setError] = useState('');
   async function load() { setLoading(true); setError(''); try { const response = await fetch(`${apiBase}/api/admin/product-reviews`, { credentials: 'include' }); const data = await response.json().catch(() => []); if (!response.ok) throw new Error(data.error || 'Could not load product reviews.'); setReviews(Array.isArray(data) ? data : []); } catch (err) { setError(err.message); } finally { setLoading(false); } }

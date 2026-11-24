@@ -3,9 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { ArrowLeft, RefreshCw, PackageCheck, UserRound, MapPin, Phone, Mail, CalendarDays, ChevronDown, X } from 'lucide-react';
 import './OrdersAdmin.css';
 
-const api = import.meta.env.DEV
-  ? (import.meta.env.VITE_API_URL || 'http://localhost:4000')
-  : import.meta.env.VITE_API_URL;
+const api = import.meta.env.DEV ? (import.meta.env.VITE_API_URL || 'http://localhost:4000') : 'https://api.tanurugs.com';
 const statuses = ['pending', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled'];
 const money = value => '₹' + Number(value || 0).toLocaleString('en-IN');
 const dateText = value => value ? new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value)) : '—';
